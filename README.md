@@ -1,4 +1,4 @@
-# gradle-play-autoincrement-plugin
+# gradle-sqlite-plugin
 A Gradle plugin to allow manipulating SQLite databases in the buildScript
 
 ## Usage
