@@ -12,7 +12,9 @@ Visit [Gradle plugins](https://plugins.gradle.org/plugin/com.github.gmazzo.sqlit
 
 After applying, the standard `groovy.sql.Sql` can be used to open or create any SQLite database with:
 ```groovy
-Sq.newInstance("jdbc:sqlite:" + databaseFile, "org.sqlite.JDBC")
+import groovy.sql.Sql
+
+Sql.newInstance('jdbc:sqlite:' + databaseFile, 'org.sqlite.JDBC')
 ```
 Or you can use this shortcut function:
 ```groovy
