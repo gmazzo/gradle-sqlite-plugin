@@ -39,7 +39,6 @@ task createSampleDatabase {
         db.execute 'INSERT INTO sample VALUES (\'AAA\', 0)'
         db.execute 'INSERT INTO sample VALUES (\'BBB\', 1)'
     }
-
 }
 ```
 
