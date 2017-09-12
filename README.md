@@ -12,11 +12,11 @@ Visit [Gradle plugins](https://plugins.gradle.org/plugin/com.github.gmazzo.sqlit
 
 After applying, the standard `groovy.sql.Sql` can be used to open or create any SQLite database with:
 ```groovy
-Sq.newInstance("jdbc:sqlite:" + <pathToDatabase>, "org.sqlite.JDBC")
+Sq.newInstance("jdbc:sqlite:" + databaseFile, "org.sqlite.JDBC")
 ```
 Or you can use this shortcut function:
 ```groovy
-openSQLiteDatabase(<pathToDatabase>)
+openSQLiteDatabase(databaseFile)
 ```
 
 ### Example
@@ -26,12 +26,12 @@ plugins {
 }
 
 task createSampleDatabase {
-    def dbFile = file("$buildDir/sample.db")
+    def databaseFile = file("$buildDir/sample.db")
 
-    outputs.file dbFile
+    outputs.file databaseFile
 
     doLast {
-        def db = openSQLiteDatabase(dbFile)
+        def db = openSQLiteDatabase(databaseFile)
         db.execute 'CREATE TABLE sample (name TEXT NOT NULL, value INTEGER NOT NULL)'
         db.execute 'INSERT INTO sample VALUES (\'AAA\', 0)'
         db.execute 'INSERT INTO sample VALUES (\'BBB\', 1)'
