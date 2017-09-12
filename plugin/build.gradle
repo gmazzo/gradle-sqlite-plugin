@@ -1,0 +1,65 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven'
+    id 'com.gradle.plugin-publish' version '0.9.7'
+}
+
+group = 'gmazzo'
+version = '0.2'
+
+def pluginId = 'com.github.gmazzo.sqlite'
+def repoName = 'gradle-sqlite-plugin'
+def repoDesc = 'A Gradle plugin to allow manipulating SQLite databases in the buildScript'
+def repoUrl = "https://github.com/gmazzo/$repoName"
+def repoTags = ['gradle', 'sqlite', 'database']
+
+task createClasspathManifest {
+    def outputDir = file("$buildDir/$name")
+
+    inputs.files sourceSets.main.runtimeClasspath
+    outputs.dir outputDir
+
+    doLast {
+        outputDir.mkdirs()
+        file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testRuntime files(createClasspathManifest)
+}
+
+test {
+    testLogging.showStandardStreams = true
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = "gradle.plugin.${project.group}"
+    }
+}
+
+gradlePlugin {
+    plugins {
+        autoincrement {
+            id = pluginId
+            implementationClass = 'com.github.gmazzo.gradle.plugins.SQLitePlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = repoUrl
+    vcsUrl = repoUrl
+    description = repoDesc
+    tags = repoTags
+
+    plugins {
+        autoincrement {
+            id = pluginId
+            displayName = 'Gradle SQLite Plugin'
+        }
+    }
+}

@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'com.github.gmazzo.sqlite'
+}
+
+sqlite {
+    // optional
+    driverDependency 'org.xerial:sqlite-jdbc:3.20.0'
+}
+
+task createSampleDatabase {
+    def dbFile = file("$buildDir/sample.db")
+
+    outputs.file dbFile
+
+    doLast {
+        def db = openSQLiteDatabase(dbFile)
+        db.execute 'CREATE TABLE sample (name TEXT NOT NULL, value INTEGER NOT NULL)'
+        db.execute 'INSERT INTO sample VALUES (\'AAA\', 0)'
+        db.execute 'INSERT INTO sample VALUES (\'BBB\', 1)'
+    }
+
+}
