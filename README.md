@@ -1,5 +1,6 @@
 # gradle-sqlite-plugin
 A Gradle plugin to allow manipulating SQLite databases in the buildScript
+> Credits to [tim-yates](https://stackoverflow.com/users/6509/tim-yates) for the working code <br/> https://stackoverflow.com/a/33904851/1007772
 
 ## Usage
 On your `build.gradle` add:
