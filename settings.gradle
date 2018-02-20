@@ -1,3 +1,7 @@
-include ':plugin'
+include ':sample'
 
-project(':plugin').name = 'sqlite-plugin'
+includeBuild('plugin') {
+    dependencySubstitution {
+        substitute module('gradle.plugin.gmazzo:sqlite-plugin') with project(':')
+    }
+}

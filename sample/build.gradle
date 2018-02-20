@@ -1,15 +1,31 @@
-plugins {
-    id 'java'
-    id 'com.github.gmazzo.sqlite'
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'gradle.plugin.gmazzo:sqlite-plugin:<local>'
+    }
 }
+
+apply plugin: 'java'
+apply plugin: 'com.github.gmazzo.sqlite'
 
 sqlite {
     // optional
     driverDependency 'org.xerial:sqlite-jdbc:3.20.0'
 }
 
+def genResDir =file("$buildDir/generated/main/resources")
+
+sourceSets {
+    main {
+        resources.srcDir genResDir
+    }
+}
+
 task createSampleDatabase {
-    def dbFile = file("$buildDir/sample.db")
+    def dbFile = file("$genResDir/sample.db")
 
     outputs.file dbFile
 
@@ -19,4 +35,6 @@ task createSampleDatabase {
         db.execute 'INSERT INTO sample VALUES (\'AAA\', 0)'
         db.execute 'INSERT INTO sample VALUES (\'BBB\', 1)'
     }
+
+    build.dependsOn it
 }

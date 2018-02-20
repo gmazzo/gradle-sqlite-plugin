@@ -8,6 +8,8 @@ plugins {
 group = 'gmazzo'
 version = '0.2'
 
+archivesBaseName = 'sqlite-plugin'
+
 def pluginId = 'com.github.gmazzo.sqlite'
 def repoName = 'gradle-sqlite-plugin'
 def repoDesc = 'A Gradle plugin to allow manipulating SQLite databases in the buildScript'
@@ -24,6 +26,10 @@ task createClasspathManifest {
         outputDir.mkdirs()
         file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
     }
+}
+
+repositories {
+    jcenter()
 }
 
 dependencies {
